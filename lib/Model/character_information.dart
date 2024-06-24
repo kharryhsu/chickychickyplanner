@@ -32,9 +32,9 @@ final List<List<String>> images = [
 List<String> rarity = ['Common', 'Rare', 'Epic', 'Legendary'];
 
 List<String> name = [
-  'Fire',
-  'Lightning',
-  'Poison',
-  'Plant',
-  'Water',
+  'Chilli',
+  'Lemon',
+  'Guava',
+  'Apple',
+  'Pineapple',
 ];
