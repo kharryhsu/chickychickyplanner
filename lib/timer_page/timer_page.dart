@@ -347,13 +347,13 @@ Widget buildCourseDropdownMenu(
   Widget buildCharacter(TimerProvider timerProvider) {
     int timeIndicator = timerProvider.maxSeconds - timerProvider.seconds;
 
-    if (timeIndicator > 0 && timeIndicator < 3600) {
+    if (timeIndicator > 0 && timeIndicator < 3599) {
       timerProvider.currentImageLevel = 0;
-    } else if (timeIndicator >= 3600 && timeIndicator < 7200) {
+    } else if (timeIndicator >= 3599 && timeIndicator < 7199) {
       timerProvider.currentImageLevel = 1;
-    } else if (timeIndicator >= 7200 && timeIndicator < 10800) {
+    } else if (timeIndicator >= 7199 && timeIndicator < 10799) {
       timerProvider.currentImageLevel = 2;
-    } else if (timeIndicator >= 10800) {
+    } else if (timeIndicator >= 10799) {
       timerProvider.currentImageLevel = 3;
     }
     return Stack(
