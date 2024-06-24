@@ -31,7 +31,11 @@ class _ChatScreenState extends State<ChatScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Delete Chat History?'),
+          title: const Text('Delete Chat History?',style: TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+            color: Color(0xff2596be),
+          ),),
           content:
               const Text('Are you sure you want to delete the chat history?'),
           actions: <Widget>[
