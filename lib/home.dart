@@ -82,28 +82,36 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) => _tapBottomNavigationBarItem(context, index),
         currentIndex: _currentPage,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.black,
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.table_chart),
-            label: 'Table',
+            icon: Image.asset(_currentPage == 0
+                ? 'lib/images/Icons/Bottom_Navigator_Interacted_Icons/Person_icon_interacted.png'
+                : 'lib/images/Icons/Bottom_Navigator_Default_Icons/Person_icon.png'),
+            label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.checklist),
-            label: 'Checklist',
+            icon: Image.asset(_currentPage == 1
+                ? 'lib/images/Icons/Bottom_Navigator_Interacted_Icons/Todolist_icon_interacted.png'
+                : 'lib/images/Icons/Bottom_Navigator_Default_Icons/Todolist_icon.png'),
+            label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.timer),
-            label: 'Timer',
+            icon: Image.asset(_currentPage == 2
+                ? 'lib/images/Icons/Bottom_Navigator_Interacted_Icons/Timer_icon_interacted.png'
+                : 'lib/images/Icons/Bottom_Navigator_Default_Icons/Timer_icon.png'),
+            label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart),
-            label: 'Chart',
+            icon: Image.asset(_currentPage == 3
+                ? 'lib/images/Icons/Bottom_Navigator_Interacted_Icons/Chart_icon_interacted.png'
+                : 'lib/images/Icons/Bottom_Navigator_Default_Icons/Chart_icon.png'),
+            label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'AI',
+            icon: Image.asset(_currentPage == 4
+                ? 'lib/images/Icons/Bottom_Navigator_Interacted_Icons/AI_icon_interacted.png'
+                : 'lib/images/Icons/Bottom_Navigator_Default_Icons/AI_icon.png'),
+            label: '',
           ),
         ],
       ),

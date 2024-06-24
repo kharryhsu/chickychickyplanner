@@ -306,12 +306,8 @@ class TimerPageState extends State<TimerPage> {
       timerProvider.currentImageLevel = 1;
     } else if (timeIndicator >= 7200 && timeIndicator < 10800) {
       timerProvider.currentImageLevel = 2;
-    } else if (timeIndicator >= 10800 && timeIndicator < 14400) {
+    } else if (timeIndicator >= 10800) {
       timerProvider.currentImageLevel = 3;
-    } else if (timeIndicator >= 14400 && timeIndicator < 18000) {
-      timerProvider.currentImageLevel = 4;
-    } else if (timeIndicator >= 18000) {
-      timerProvider.currentImageLevel = 5;
     }
     return Stack(
       alignment: Alignment.center,
@@ -342,7 +338,7 @@ class TimerPageState extends State<TimerPage> {
               images[timerProvider.currentImageLevel]
                   [timerProvider.currentImageIndex],
               width: 200,
-              height: 350,
+              height: 200,
             ),
             Visibility(
               visible: !timerProvider.hasStarted,

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:chickychickyplanner/Model/chat_message.dart';
-//import 'package:chickychickyplanner/provider/task_provider.dart';
 import 'package:chickychickyplanner/provider/prompt_text_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';

@@ -12,12 +12,14 @@ class OptionsPage extends StatelessWidget {
         width: 700,
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("lib/images/3.jpg"), fit: BoxFit.fill)),
+                image:
+                    AssetImage("lib/images/Decorations/Start_background.jpg"),
+                fit: BoxFit.fill)),
         child: Padding(
           padding: const EdgeInsets.only(top: 100, left: 20, right: 20),
           child: Column(
             children: [
-              Container(
+              SizedBox(
                   width: 300,
                   height: 300,
                   child: Column(
@@ -107,7 +109,8 @@ class OptionsPage extends StatelessWidget {
                 width: 400,
                 decoration: const BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage("lib/images/IMG_2695.png"),
+                        image: AssetImage(
+                            "lib/images/Decorations/ChickyChicky.png"),
                         fit: BoxFit.fill)),
               )
             ],
