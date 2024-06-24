@@ -142,43 +142,64 @@ class TimerPageState extends State<TimerPage> {
                   );
                 };
                 return Center(
-                  child: Listener(
-                    onPointerMove: (moveEvent) {
-                      double sensitivity = 18;
-                      if (moveEvent.delta.dx > sensitivity) {
-                        previousImage(timerProvider);
-                      } else if (moveEvent.delta.dx < -sensitivity) {
-                        nextImage(timerProvider);
-                      }
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        buildCharacter(timerProvider),
-                        const SizedBox(
-                          height: 20,
+                  child: Stack(
+                    children: [
+                      Container(
+                        height: 900,
+                        width: 450,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('lib/images/Timer.png'),
+                            fit: BoxFit.fill,
+                            
+                          ),
                         ),
-                        buildCourseDropdownMenu(timerProvider, courses),
-                        Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Visibility(
-                                visible: !timerProvider.hasStarted,
-                                child: buildCharacterInputFields()),
-                            Visibility(
-                                visible: timerProvider.hasStarted,
-                                child: buildTime(timerProvider)),
-                          ],
+                      ),
+                      
+                      Listener(
+                        onPointerMove: (moveEvent) {
+                          double sensitivity = 18;
+                          if (moveEvent.delta.dx > sensitivity) {
+                            previousImage(timerProvider);
+                          } else if (moveEvent.delta.dx < -sensitivity) {
+                            nextImage(timerProvider);
+                          }
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 200),
+                          child: Column(
+                            children: [
+                              buildCharacter(timerProvider),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              buildCourseDropdownMenu(timerProvider, courses),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Visibility(
+                                      visible: !timerProvider.hasStarted,
+                                      child: buildCharacterInputFields()),
+                                  Visibility(
+                                      visible: timerProvider.hasStarted,
+                                      child: buildTime(timerProvider)),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              buildButton(timerProvider, coursesAvailable),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                            ],
+                          ),
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        buildButton(timerProvider, coursesAvailable),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 );
               },
@@ -247,9 +268,18 @@ class TimerPageState extends State<TimerPage> {
     }
   }
 
-  Widget buildCourseDropdownMenu(
-      TimerProvider timerProvider, List<String> courses) {
-    return DropdownButton<String>(
+Widget buildCourseDropdownMenu(
+    TimerProvider timerProvider, List<String> courses) {
+  return Container(
+    width: 150,
+    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(30),
+      border: Border.all(color: Color(0xff68534d),
+      width: 3),
+    ),
+    child: DropdownButton<String>(
       hint: const Text('Course'),
       value: timerProvider.selectedCourse,
       items: courses.map<DropdownMenuItem<String>>((String value) {
@@ -263,11 +293,17 @@ class TimerPageState extends State<TimerPage> {
           timerProvider.selectedCourse = newValue;
         });
       },
-    );
-  }
+      dropdownColor: Colors.white, // Sets the background color of the dropdown
+      underline: SizedBox(), // Removes the default underline
+      isExpanded: true, // Ensures the dropdown fills the width of the container
+    ),
+  );
+}
 
-  Widget buildCharacterInputFields() {
-    return Row(
+
+ Widget buildCharacterInputFields() {
+  return Container(
+    child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
@@ -277,7 +313,11 @@ class TimerPageState extends State<TimerPage> {
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(
               labelText: 'Hours',
-              border: OutlineInputBorder(),
+              border: OutlineInputBorder(
+                borderSide: BorderSide(width: 10), // Set border width here
+              ),
+              filled: true,
+              fillColor: Colors.white,
             ),
           ),
         ),
@@ -289,13 +329,20 @@ class TimerPageState extends State<TimerPage> {
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(
               labelText: 'Minutes',
-              border: OutlineInputBorder(),
+              border: OutlineInputBorder(
+                borderSide: BorderSide(width: 2), // Set border width here
+              ),
+              filled: true,
+              fillColor: Colors.white,
             ),
           ),
         ),
       ],
-    );
-  }
+    ),
+  );
+}
+
+
 
   Widget buildCharacter(TimerProvider timerProvider) {
     int timeIndicator = timerProvider.maxSeconds - timerProvider.seconds;
@@ -313,15 +360,15 @@ class TimerPageState extends State<TimerPage> {
       alignment: Alignment.center,
       children: [
         SizedBox(
-          width: 300,
-          height: 300,
+          width: 250,
+          height: 250,
           child: CircularProgressIndicator(
             value: timerProvider.seconds / timerProvider.maxSeconds,
-            backgroundColor: Colors.grey,
+            backgroundColor: Color(0xff12651b),
             valueColor: const AlwaysStoppedAnimation<Color>(
-              Color.fromARGB(255, 76, 46, 2),
+              Color.fromARGB(255, 255, 255, 255),
             ),
-            strokeWidth: 10,
+            strokeWidth: 20,
           ),
         ),
         Row(
@@ -370,7 +417,7 @@ class TimerPageState extends State<TimerPage> {
       '$hours:${minutes.toString().padLeft(2, '0')}:${remainingSeconds.toString().padLeft(2, '0')}',
       style: const TextStyle(
         fontWeight: FontWeight.bold,
-        color: Color.fromARGB(255, 76, 46, 2),
+        color: Color(0xff12651b),
         fontSize: 50,
       ),
     );
