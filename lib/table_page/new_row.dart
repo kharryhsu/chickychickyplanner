@@ -131,9 +131,12 @@ Widget build(BuildContext context) {
               Visibility(
                 visible: _selectedType == TypeCourse.others &&
                     _customType.isNotEmpty,
-                child: Text(
-                  ': $_customType',
-                  style: const TextStyle(fontSize: 16),
+                child: Padding(
+                  padding: const EdgeInsets.only(top:50.0),
+                  child: Text(
+                    ': $_customType',
+                    style: const TextStyle(fontSize: 16),
+                  ),
                 ),
               )
             ],
@@ -208,7 +211,11 @@ Widget build(BuildContext context) {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Enter Custom Type'),
+        title: const Text('Enter Custom Type',style: TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+            color: Color(0xffc78e3a),
+          ),),
         content: TextField(
           onChanged: (value) {
             setState(() {
