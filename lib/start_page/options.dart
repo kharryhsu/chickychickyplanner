@@ -16,12 +16,12 @@ class OptionsPage extends StatelessWidget {
                     AssetImage("lib/images/Decorations/Start_background.jpg"),
                 fit: BoxFit.fill)),
         child: Padding(
-          padding: const EdgeInsets.only(top: 100, left: 20, right: 20),
+          padding: const EdgeInsets.only(top: 130, left: 20, right: 20),
           child: Column(
             children: [
               SizedBox(
                   width: 300,
-                  height: 300,
+                  height: 301,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,31 +29,31 @@ class OptionsPage extends StatelessWidget {
                       Text(
                         "First",
                         style: GoogleFonts.lemon(
-                          fontSize: 46,
+                          fontSize: 70,
                           fontWeight: FontWeight.bold,
                           height: -0.1,
                           color: const Color(0xffC88421),
                         ),
                       ),
                       const SizedBox(
-                        height: 45,
+                        height: 75,
                       ),
                       Text(
                         "Time",
                         style: GoogleFonts.lemon(
-                          fontSize: 46,
+                          fontSize: 70,
                           fontWeight: FontWeight.bold,
                           height: -0.1,
                           color: const Color(0xffC88421),
                         ),
                       ),
                       const SizedBox(
-                        height: 50,
+                        height: 80,
                       ),
                       Text(
                         "Using ?",
                         style: GoogleFonts.lemon(
-                          fontSize: 46,
+                          fontSize: 70,
                           fontWeight: FontWeight.bold,
                           height: -0.1,
                           color: const Color(0xffC88421),
@@ -84,7 +84,7 @@ class OptionsPage extends StatelessWidget {
                             child: Text("Started Tutorial"),
                           )),
                       const SizedBox(
-                        height: 5,
+                        height: 0,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 30),
@@ -104,14 +104,17 @@ class OptionsPage extends StatelessWidget {
                       ),
                     ],
                   )),
-              Container(
-                height: 350,
-                width: 400,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(
-                            "lib/images/Decorations/ChickyChicky.png"),
-                        fit: BoxFit.fill)),
+              Padding(
+                padding: const EdgeInsets.only(top:2.0),
+                child: Container(
+                  height: 350,
+                  width: 400,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage(
+                              "lib/images/Decorations/ChickyChicky.png"),
+                          fit: BoxFit.fill)),
+                ),
               )
             ],
           ),
