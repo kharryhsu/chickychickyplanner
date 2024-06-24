@@ -88,11 +88,18 @@ class TimerPageState extends State<TimerPage> {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: const Text('Congratulations!'),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 30.0,top: 20),
+                              child: Text('Congratulations!', style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xff12651b)
+                              )),
+                            ),
                             Container(
                               padding: const EdgeInsets.all(2),
                               decoration: BoxDecoration(
@@ -107,7 +114,7 @@ class TimerPageState extends State<TimerPage> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.only(top: 30.0),
                               child: Text(
                                 'You got a/an ${name[timerProvider.currentImageIndex]}',
                                 style: const TextStyle(fontSize: 18),
@@ -134,7 +141,7 @@ class TimerPageState extends State<TimerPage> {
                               timerProvider.updateCurrentImageLevel(0);
                               Navigator.of(context).pop();
                             },
-                            child: const Text('OK'),
+                            child: Text('OK'),
                           ),
                         ],
                       );
@@ -376,8 +383,8 @@ class TimerPageState extends State<TimerPage> {
             Image.asset(
               images[timerProvider.currentImageLevel]
                   [timerProvider.currentImageIndex],
-              width: 200,
-              height: 200,
+              width: 150,
+              height: 150,
             ),
             Visibility(
               visible: !timerProvider.hasStarted,
@@ -410,7 +417,7 @@ class TimerPageState extends State<TimerPage> {
       style: const TextStyle(
         fontWeight: FontWeight.bold,
         color: Color(0xff12651b),
-        fontSize: 50,
+        fontSize: 45,
       ),
     );
   }

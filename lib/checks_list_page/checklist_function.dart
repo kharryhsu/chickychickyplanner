@@ -76,7 +76,9 @@ class _ChecklistFunctionState extends State<ChecklistFunction> {
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
-              title: Text(_editedTask == null ? 'New Task' : 'Edit Task'),
+              title: Text(_editedTask == null ? 'New Task' : 'Edit Task',style: TextStyle(
+                color: Color(0xffcc29aa),
+                fontWeight: FontWeight.bold,),),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -92,7 +94,8 @@ class _ChecklistFunctionState extends State<ChecklistFunction> {
                     title: Text(
                       _selectedDate == null
                           ? 'No due date chosen'
-                          : 'Due Date: ${_selectedDate!.toLocal().toString().split(' ')[0]}',
+                          : 'Due Date: ${_selectedDate!.toLocal().toString().split(' ')[0]}',style: TextStyle(fontSize: 12
+                          ),
                     ),
                     trailing: IconButton(
                       icon: const Icon(Icons.calendar_today),

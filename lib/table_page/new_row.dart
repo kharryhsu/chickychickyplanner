@@ -79,128 +79,129 @@ class _NewRowState extends State<NewRow> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const SizedBox(
-              height: 30,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
+@override
+Widget build(BuildContext context) {
+  return Form(
+    key: _formKey,
+    child: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const SizedBox(height: 30),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top:8.0,bottom: 8),
+                    child: const Text(
                       'Type',
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold,color: Color(0xffc78e3a)),
                     ),
-                    DropdownButton<TypeCourse>(
-                      value: _selectedType,
-                      items: TypeCourse.values.map((type) {
-                        final index = TypeCourse.values.indexOf(type);
-                        return DropdownMenuItem<TypeCourse>(
-                          value: type,
-                          child: Text(
-                            _courseType[index],
-                          ),
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        if (value == null) {
-                          return;
-                        }
-                        setState(() {
-                          _selectedType = value;
-                          if (_selectedType == TypeCourse.others) {
-                            _showCustomTypeDialog();
-                          }
-                        });
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Visibility(
-                  visible: _selectedType == TypeCourse.others &&
-                          _customType.isNotEmpty
-                      ? true
-                      : false,
-                  child: Text(
-                    ': $_customType',
-                    style: const TextStyle(fontSize: 16),
                   ),
-                )
-              ],
-            ),
-            TextFormField(
-              controller: _nameController,
-              decoration: const InputDecoration(
-                label: Text('Course Name'),
+                  DropdownButton<TypeCourse>(
+                    value: _selectedType,
+                    items: TypeCourse.values.map((type) {
+                      final index = TypeCourse.values.indexOf(type);
+                      return DropdownMenuItem<TypeCourse>(
+                        value: type,
+                        child: Text(
+                          _courseType[index],
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      if (value == null) {
+                        return;
+                      }
+                      setState(() {
+                        _selectedType = value;
+                        if (_selectedType == TypeCourse.others) {
+                          _showCustomTypeDialog();
+                        }
+                      });
+                    },
+                  ),
+                ],
               ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter a valid course name';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _creditController,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                label: Text('Credits'),
-              ),
-              validator: (value) {
-                if (value!.isEmpty ||
-                    double.tryParse(value) == null ||
-                    int.tryParse(value)! < 0) {
-                  return 'Please enter a valid credits';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _timeController,
-              decoration: const InputDecoration(
-                label: Text('Time'),
-              ),
-              validator: (value) {
-                return parseTime(value!, context) == ''
-                    ? null
-                    : parseTime(value, context);
-              },
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ElevatedButton(
-                  onPressed: _submitRowData,
-                  child: const Text('Save'),
+              const SizedBox(width: 10),
+              Visibility(
+                visible: _selectedType == TypeCourse.others &&
+                    _customType.isNotEmpty,
+                child: Text(
+                  ': $_customType',
+                  style: const TextStyle(fontSize: 16),
                 ),
-                const SizedBox(width: 10),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text('Cancel'),
-                ),
-              ],
+              )
+            ],
+          ),
+          TextFormField(
+            controller: _nameController,
+            decoration: const InputDecoration(
+              labelText: 'Course Name',
             ),
-          ],
-        ),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter a valid course name';
+              }
+              return null;
+            },
+          ),
+          TextFormField(
+            controller: _creditController,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(
+              labelText: 'Credits',
+            ),
+            validator: (value) {
+              if (value!.isEmpty ||
+                  double.tryParse(value) == null ||
+                  int.tryParse(value)! < 0) {
+                return 'Please enter a valid credits';
+              }
+              return null;
+            },
+          ),
+          TextFormField(
+            controller: _timeController,
+            decoration: const InputDecoration(
+              labelText: 'Time',
+            ),
+            validator: (value) {
+              return parseTime(value!, context) == ''
+                  ? null
+                  : parseTime(value, context);
+            },
+          ),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ElevatedButton(
+                onPressed: _submitRowData,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xffc78e3a), // Set green background color here
+                ),
+                child: const Text('Save',style: TextStyle(color: Colors.white),),
+              ),
+              const SizedBox(width: 10),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Cancel'),
+              ),
+            ],
+          ),
+        ],
       ),
-    );
-  }
+    ),
+  );
+}
+
 
   void _showCustomTypeDialog() {
     _customType = '';
