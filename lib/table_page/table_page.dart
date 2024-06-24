@@ -3,7 +3,7 @@ import 'package:chickychickyplanner/table_page/table_list.dart';
 import 'package:flutter/material.dart';
 
 class TablePage extends StatefulWidget {
-  const TablePage({super.key});
+  const TablePage({Key? key});
 
   @override
   State<TablePage> createState() => _TablePageState();
@@ -14,11 +14,16 @@ class _TablePageState extends State<TablePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: [
-        Stack(
+        Positioned.fill(
+          child: Image.asset(
+            'lib/images/Main.png', // Replace with your image path
+            fit: BoxFit.fill, // Adjust the fit as needed
+          ),
+        ),
+        Column(
           children: [
-            const SizedBox(height: 100),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 100, 0, 16),
               child: Container(
@@ -93,49 +98,49 @@ class _TablePageState extends State<TablePage> {
                 ),
               ),
             ),
+            Expanded(
+              child: IndexedStack(
+                index: current,
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 255, 252, 247),
+                      border: Border(
+                        top: BorderSide(
+                          color: Color.fromARGB(255, 76, 46, 2),
+                          width: 2.0,
+                        ),
+                      ),
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(20),
+                        topLeft: Radius.circular(20),
+                      ),
+                    ),
+                    child: const ListTab(),
+                  ),
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 255, 252, 247),
+                      border: Border(
+                        top: BorderSide(
+                          color: Color.fromARGB(255, 76, 46, 2),
+                          width: 2.0,
+                        ),
+                      ),
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(20),
+                        topLeft: Radius.circular(20),
+                      ),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: OverviewTab(),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
-        ),
-        Expanded(
-          child: IndexedStack(
-            index: current,
-            children: [
-              Container(
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 255, 252, 247),
-                  border: Border(
-                    top: BorderSide(
-                      color: Color.fromARGB(255, 76, 46, 2),
-                      width: 2.0,
-                    ),
-                  ),
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(20),
-                    topLeft: Radius.circular(20),
-                  ),
-                ),
-                child: const ListTab(),
-              ),
-              Container(
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 255, 252, 247),
-                  border: Border(
-                    top: BorderSide(
-                      color: Color.fromARGB(255, 76, 46, 2),
-                      width: 2.0,
-                    ),
-                  ),
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(20),
-                    topLeft: Radius.circular(20),
-                  ),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: OverviewTab(),
-                ),
-              ),
-            ],
-          ),
         ),
       ],
     );
