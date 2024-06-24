@@ -16,7 +16,7 @@ class StartPage extends StatelessWidget {
                     AssetImage("lib/images/Decorations/Start_background.jpg"),
                 fit: BoxFit.fill)),
         child: Padding(
-          padding: const EdgeInsets.only(top: 100, left: 20, right: 20),
+          padding: const EdgeInsets.only(top: 130, left: 20, right: 20),
           child: Column(
             children: [
               SizedBox(
@@ -97,14 +97,18 @@ class StartPage extends StatelessWidget {
                           ))
                     ],
                   )),
-              Container(
-                height: 350,
-                width: 400,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(
-                            "lib/images/Decorations/ChickyChicky.png"),
-                        fit: BoxFit.fill)),
+              
+              Padding(
+                padding: const EdgeInsets.only(top:3.0),
+                child: Container(
+                  height: 350,
+                  width: 400,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage(
+                              "lib/images/Decorations/ChickyChicky.png"),
+                          fit: BoxFit.fill)),
+                ),
               )
             ],
           ),

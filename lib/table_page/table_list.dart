@@ -99,31 +99,43 @@ class _ListTabState extends State<ListTab> {
     });
   }
 
-  void _showOptionsDialog(BuildContext context, int index) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Deletion for Row ${index + 1}'),
-          content: const Text('Do you want to remove this row?'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                _removeRow(index);
-              },
-              child: const Text('Yes'),
+ void _showOptionsDialog(BuildContext context, int index) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(
+          'Deletion for Row ${index + 1}',
+          style: TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+            color: Color(0xffc78e3a),
+          ),
+        ),
+        content: const Text('Do you want to remove this row?'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              _removeRow(index);
+              Navigator.of(context).pop();
+            },
+            style: TextButton.styleFrom(
+              backgroundColor: Color(0xffc78e3a), // Set green background color here
             ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Cancel'),
-            ),
-          ],
-        );
-      },
-    );
-  }
+            child: const Text('Yes', style: TextStyle(color: Colors.white)),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('Cancel'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {
