@@ -88,11 +88,18 @@ class TimerPageState extends State<TimerPage> {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: const Text('Congratulations!'),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 30.0,top: 20),
+                              child: Text('Congratulations!', style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xff12651b)
+                              )),
+                            ),
                             Container(
                               padding: const EdgeInsets.all(2),
                               decoration: BoxDecoration(
@@ -107,7 +114,7 @@ class TimerPageState extends State<TimerPage> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.only(top: 30.0),
                               child: Text(
                                 timerProvider.currentImageIndex != 3 ? 'You got a ${name[timerProvider.currentImageIndex]}' : 'You got an ${name[timerProvider.currentImageIndex]}',
                                 style: const TextStyle(fontSize: 18),
@@ -134,7 +141,7 @@ class TimerPageState extends State<TimerPage> {
                               timerProvider.updateCurrentImageLevel(0);
                               Navigator.of(context).pop();
                             },
-                            child: const Text('OK'),
+                            child: Text('OK'),
                           ),
                         ],
                       );
@@ -147,15 +154,13 @@ class TimerPageState extends State<TimerPage> {
                       Container(
                         height: 900,
                         width: 450,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage('lib/images/Timer.png'),
                             fit: BoxFit.fill,
-                            
                           ),
                         ),
                       ),
-                      
                       Listener(
                         onPointerMove: (moveEvent) {
                           double sensitivity = 18;
@@ -268,42 +273,39 @@ class TimerPageState extends State<TimerPage> {
     }
   }
 
-Widget buildCourseDropdownMenu(
-    TimerProvider timerProvider, List<String> courses) {
-  return Container(
-    width: 150,
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(30),
-      border: Border.all(color: Color(0xff68534d),
-      width: 3),
-    ),
-    child: DropdownButton<String>(
-      hint: const Text('Course'),
-      value: timerProvider.selectedCourse,
-      items: courses.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-      onChanged: (newValue) {
-        setState(() {
-          timerProvider.selectedCourse = newValue;
-        });
-      },
-      dropdownColor: Colors.white, // Sets the background color of the dropdown
-      underline: SizedBox(), // Removes the default underline
-      isExpanded: true, // Ensures the dropdown fills the width of the container
-    ),
-  );
-}
+  Widget buildCourseDropdownMenu(
+      TimerProvider timerProvider, List<String> courses) {
+    return Container(
+      width: 150,
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(30),
+        border: Border.all(color: const Color(0xff68534d), width: 3),
+      ),
+      child: DropdownButton<String>(
+        hint: const Text('Course'),
+        value: timerProvider.selectedCourse,
+        items: courses.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+        onChanged: (newValue) {
+          setState(() {
+            timerProvider.selectedCourse = newValue;
+          });
+        },
+        dropdownColor: Colors.white,
+        underline: const SizedBox(),
+        isExpanded: true,
+      ),
+    );
+  }
 
-
- Widget buildCharacterInputFields() {
-  return Container(
-    child: Row(
+  Widget buildCharacterInputFields() {
+    return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
@@ -314,7 +316,7 @@ Widget buildCourseDropdownMenu(
             decoration: const InputDecoration(
               labelText: 'Hours',
               border: OutlineInputBorder(
-                borderSide: BorderSide(width: 10), // Set border width here
+                borderSide: BorderSide(width: 10),
               ),
               filled: true,
               fillColor: Colors.white,
@@ -330,7 +332,7 @@ Widget buildCourseDropdownMenu(
             decoration: const InputDecoration(
               labelText: 'Minutes',
               border: OutlineInputBorder(
-                borderSide: BorderSide(width: 2), // Set border width here
+                borderSide: BorderSide(width: 2),
               ),
               filled: true,
               fillColor: Colors.white,
@@ -338,11 +340,8 @@ Widget buildCourseDropdownMenu(
           ),
         ),
       ],
-    ),
-  );
-}
-
-
+    );
+  }
 
   Widget buildCharacter(TimerProvider timerProvider) {
     int timeIndicator = timerProvider.maxSeconds - timerProvider.seconds;
@@ -364,7 +363,7 @@ Widget buildCourseDropdownMenu(
           height: 250,
           child: CircularProgressIndicator(
             value: timerProvider.seconds / timerProvider.maxSeconds,
-            backgroundColor: Color(0xff12651b),
+            backgroundColor: const Color(0xff12651b),
             valueColor: const AlwaysStoppedAnimation<Color>(
               Color.fromARGB(255, 255, 255, 255),
             ),
@@ -384,8 +383,8 @@ Widget buildCourseDropdownMenu(
             Image.asset(
               images[timerProvider.currentImageLevel]
                   [timerProvider.currentImageIndex],
-              width: 200,
-              height: 200,
+              width: 150,
+              height: 150,
             ),
             Visibility(
               visible: !timerProvider.hasStarted,
@@ -418,7 +417,7 @@ Widget buildCourseDropdownMenu(
       style: const TextStyle(
         fontWeight: FontWeight.bold,
         color: Color(0xff12651b),
-        fontSize: 50,
+        fontSize: 45,
       ),
     );
   }
