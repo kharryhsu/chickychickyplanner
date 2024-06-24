@@ -124,7 +124,7 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
             Container(
               padding: const EdgeInsets.all(16),
-              color: Color(0xffb2cbde),
+              color: const Color(0xffb2cbde),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [

@@ -37,4 +37,5 @@ flutter:
     - lib/images/Icons/Bottom_Navigator_Interacted_Icons/
     - lib/images/Icons/Bottom_Navigator_Default_Icons/
     - lib/images/
+    - lib/images/Tutorial_page/
     - lib/env/.env

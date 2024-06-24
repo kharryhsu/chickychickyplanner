@@ -2,7 +2,7 @@ import 'package:chickychickyplanner/chart_page/chart_function.dart';
 import 'package:flutter/material.dart';
 
 class ChartPage extends StatefulWidget {
-  const ChartPage({Key? key});
+  const ChartPage({super.key});
 
   @override
   State<ChartPage> createState() => _ChartPageState();
@@ -26,8 +26,9 @@ class _ChartPageState extends State<ChartPage> {
               child: IndexedStack(
                 children: [
                   Container(
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 255, 252, 247), // Adjust background color opacity
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 255, 252,
+                          247), // Adjust background color opacity
                       border: Border(
                         top: BorderSide(
                           color: Color.fromARGB(255, 76, 46, 2),
@@ -39,11 +40,11 @@ class _ChartPageState extends State<ChartPage> {
                         topLeft: Radius.circular(20),
                       ),
                     ),
-                    child: Column(
+                    child: const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(24, 13, 0, 0),
+                          padding: EdgeInsets.fromLTRB(24, 13, 0, 0),
                           child: Text(
                             'Chart',
                             style: TextStyle(
@@ -53,7 +54,7 @@ class _ChartPageState extends State<ChartPage> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          padding: EdgeInsets.symmetric(horizontal: 24),
                           child: Divider(
                             thickness: 2,
                             color: Color.fromARGB(255, 76, 46, 2),

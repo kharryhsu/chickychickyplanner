@@ -2,7 +2,7 @@ import 'package:chickychickyplanner/checks_list_page/checklist_function.dart';
 import 'package:flutter/material.dart';
 
 class ChecklistPage extends StatefulWidget {
-  const ChecklistPage({Key? key});
+  const ChecklistPage({super.key});
 
   @override
   State<ChecklistPage> createState() => _ChecklistPageState();
@@ -15,8 +15,8 @@ class _ChecklistPageState extends State<ChecklistPage> {
       children: [
         Positioned.fill(
           child: Image.asset(
-            'lib/images/Todo.png', // Replace with your image path
-            fit: BoxFit.fill, // Adjust the fit as needed
+            'lib/images/Todo.png',
+            fit: BoxFit.fill,
           ),
         ),
         Column(
@@ -26,7 +26,7 @@ class _ChecklistPageState extends State<ChecklistPage> {
               child: IndexedStack(
                 children: [
                   Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color.fromARGB(255, 255, 252, 247),
                       border: Border(
                         top: BorderSide(
@@ -39,11 +39,11 @@ class _ChecklistPageState extends State<ChecklistPage> {
                         topLeft: Radius.circular(20),
                       ),
                     ),
-                    child: Column(
+                    child: const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(24, 13, 0, 0),
+                          padding: EdgeInsets.fromLTRB(24, 13, 0, 0),
                           child: Text(
                             'Todolist',
                             style: TextStyle(
@@ -53,7 +53,7 @@ class _ChecklistPageState extends State<ChecklistPage> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          padding: EdgeInsets.symmetric(horizontal: 24),
                           child: Divider(
                             thickness: 2,
                             color: Color.fromARGB(255, 76, 46, 2),

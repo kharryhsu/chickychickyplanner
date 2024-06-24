@@ -95,9 +95,9 @@ Widget build(BuildContext context) {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top:8.0,bottom: 8),
-                    child: const Text(
+                  const Padding(
+                    padding: EdgeInsets.only(top:8.0,bottom: 8),
+                    child: Text(
                       'Type',
                       style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold,color: Color(0xffc78e3a)),
                     ),
@@ -183,7 +183,7 @@ Widget build(BuildContext context) {
               ElevatedButton(
                 onPressed: _submitRowData,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xffc78e3a), // Set green background color here
+                  backgroundColor: const Color(0xffc78e3a), // Set green background color here
                 ),
                 child: const Text('Save',style: TextStyle(color: Colors.white),),
               ),

@@ -30,13 +30,12 @@ class TutorialPageState extends State<TutorialPage> {
   }
 
   void _goToNextPage() {
-    if (_currentPage < 3) {
+    if (_currentPage < 5) {
       _pageController.nextPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.ease,
       );
     } else {
-      // Navigate to '/table' when on the last page
       MyApp.navigatorKey.currentState!.pushNamed('/table');
     }
   }
@@ -54,14 +53,14 @@ class TutorialPageState extends State<TutorialPage> {
               });
             },
             children: [
-              _buildTutorialPage('Page 1', Colors.blue),
-              _buildTutorialPage('Page 2', Colors.green),
-              _buildTutorialPage('Page 3', Colors.orange),
-              _buildLastTutorialPage('Page 4', Colors.purple),
+              for (int i = 0; i < 6; i++)
+                _buildTutorialPage(
+                    'lib/images/Tutorial_page/Tutorial_page_0$i.png'),
+              _buildLastTutorialPage('lib/images/Decorations/ChickyChicky.png'),
             ],
           ),
           Positioned(
-            bottom: 20,
+            top: 40,
             left: 0,
             right: 0,
             child: Row(
@@ -93,7 +92,7 @@ class TutorialPageState extends State<TutorialPage> {
 
   List<Widget> _buildIndicatorDots() {
     List<Widget> dots = [];
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 6; i++) {
       dots.add(
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 4),
@@ -111,7 +110,7 @@ class TutorialPageState extends State<TutorialPage> {
     return dots;
   }
 
-  Widget _buildTutorialPage(String text, Color color) {
+  Widget _buildTutorialPage(String imageName) {
     return GestureDetector(
       onHorizontalDragUpdate: (details) {
         int sensitivity = 20;
@@ -122,18 +121,17 @@ class TutorialPageState extends State<TutorialPage> {
         }
       },
       child: Container(
-        color: color,
-        child: Center(
-          child: Text(
-            text,
-            style: const TextStyle(fontSize: 24, color: Colors.white),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(imageName),
+            fit: BoxFit.cover,
           ),
         ),
       ),
     );
   }
 
-  Widget _buildLastTutorialPage(String text, Color color) {
+  Widget _buildLastTutorialPage(String imageName) {
     return GestureDetector(
       onHorizontalDragUpdate: (details) {
         int sensitivity = 20;
@@ -144,14 +142,15 @@ class TutorialPageState extends State<TutorialPage> {
         }
       },
       child: Container(
-        color: color,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(imageName),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              text,
-              style: const TextStyle(fontSize: 24, color: Colors.white),
-            ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _goToNextPage,

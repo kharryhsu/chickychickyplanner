@@ -3,7 +3,7 @@ import 'package:chickychickyplanner/table_page/table_list.dart';
 import 'package:flutter/material.dart';
 
 class TablePage extends StatefulWidget {
-  const TablePage({Key? key});
+  const TablePage({super.key});
 
   @override
   State<TablePage> createState() => _TablePageState();
@@ -18,8 +18,8 @@ class _TablePageState extends State<TablePage> {
       children: [
         Positioned.fill(
           child: Image.asset(
-            'lib/images/Main.png', // Replace with your image path
-            fit: BoxFit.fill, // Adjust the fit as needed
+            'lib/images/Main.png',
+            fit: BoxFit.fill,
           ),
         ),
         Column(

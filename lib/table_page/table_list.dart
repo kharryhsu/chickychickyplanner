@@ -106,7 +106,7 @@ class _ListTabState extends State<ListTab> {
       return AlertDialog(
         title: Text(
           'Deletion for Row ${index + 1}',
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.bold,
             color: Color(0xffc78e3a),
@@ -120,7 +120,7 @@ class _ListTabState extends State<ListTab> {
               Navigator.of(context).pop();
             },
             style: TextButton.styleFrom(
-              backgroundColor: Color(0xffc78e3a), // Set green background color here
+              backgroundColor: const Color(0xffc78e3a), // Set green background color here
             ),
             child: const Text('Yes', style: TextStyle(color: Colors.white)),
           ),
