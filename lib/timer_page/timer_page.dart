@@ -316,7 +316,13 @@ class TimerPageState extends State<TimerPage> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: const Text('Invalid Time'),
+                  title: const Text(
+                    'Invalid Time',
+                    style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff12651b)),
+                  ),
                   content: const Text(
                       'Please enter a valid duration for the timer.'),
                   actions: [

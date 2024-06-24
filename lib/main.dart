@@ -51,6 +51,7 @@ class MyApp extends StatelessWidget {
         MaterialTheme theme = MaterialTheme(textTheme);
 
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           theme: brightness == Brightness.light ? theme.light() : theme.dark(),
           navigatorKey: navigatorKey,
           initialRoute: '/',
