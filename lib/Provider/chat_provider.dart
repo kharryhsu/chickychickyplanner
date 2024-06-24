@@ -1,12 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:chickychickyplanner/Model/chat_message.dart';
+//import 'package:chickychickyplanner/provider/task_provider.dart';
 import 'package:chickychickyplanner/provider/prompt_text_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-class ChatService {
-  static const String _apiKey = 'API_KEY';
+class ChatService with ChangeNotifier {
+  final String _apiKey = dotenv.env['OPENAI_API_KEY'] ?? '';
   static const String _url = 'https://api.edenai.run/v2/text/generation';
 
   final _messagesStreamController =
@@ -51,6 +54,7 @@ class ChatService {
       await prefs.remove('chat_history');
       _messages.clear();
       _messagesStreamController.add(List.from(_messages));
+      notifyListeners();
     } catch (e) {
       throw Exception('Failed to clear chat history: $e');
     }
@@ -62,8 +66,11 @@ class ChatService {
   }
 
   Future<void> fetchPromptResponse(
-      String prompt, PromptTextProvider promptTextProvider) async {
-    String fullPrompt = _buildFullPrompt(promptTextProvider.text + prompt);
+      String prompt,
+      PromptTextProvider
+          promptTextProvider /*, TaskProvider taskProvider*/) async {
+    String fullPrompt = _buildFullPrompt(
+        /*taskProvider.promptTextTask() +*/ '${promptTextProvider.text} $prompt.');
 
     _messages.insert(0, ChatMessage(role: 'User Chicky Chicky', text: prompt));
     _messages.insert(
@@ -77,35 +84,41 @@ class ChatService {
       'max_tokens': 1000,
     });
 
-    var response = await http.post(
-      Uri.parse(_url),
-      headers: {
-        'Authorization': 'Bearer $_apiKey',
-        'Content-Type': 'application/json',
-      },
-      body: requestBody,
-    );
+    try {
+      var response = await http.post(
+        Uri.parse(_url),
+        headers: {
+          'Authorization': 'Bearer $_apiKey',
+          'Content-Type': 'application/json',
+        },
+        body: requestBody,
+      );
 
-    if (response.statusCode != 200) {
-      throw Exception('Failed to fetch response: ${response.statusCode}');
-    }
-
-    var data = json.decode(response.body);
-    if (data != null && data['cohere'] != null) {
-      var assistantResponse = data['cohere']['generated_text'];
-      if (assistantResponse != null) {
-        _messages[0] =
-            ChatMessage(role: 'AI Assistant', text: assistantResponse);
-      } else {
-        throw Exception('Empty assistant response');
+      if (response.statusCode != 200) {
+        throw Exception('Failed to fetch response: ${response.statusCode}');
       }
-    } else {
-      throw Exception('Unexpected API response format');
-    }
 
-    _messagesStreamController.add(List.from(_messages));
-    saveChatHistory();
-    //taskProvider.promptTextTaskClear();
+      var data = json.decode(response.body);
+      if (data != null && data['cohere'] != null) {
+        var assistantResponse = data['cohere']['generated_text'];
+        if (assistantResponse != null) {
+          _messages[0] =
+              ChatMessage(role: 'AI Assistant', text: assistantResponse);
+        } else {
+          throw Exception('Empty assistant response');
+        }
+      } else {
+        throw Exception('Unexpected API response format');
+      }
+    } catch (e) {
+      _messages[0] = ChatMessage(
+          role: 'AI Assistant', text: 'Failed to generate response.');
+      rethrow;
+    } finally {
+      _messagesStreamController.add(List.from(_messages));
+      saveChatHistory();
+      //taskProvider.promptTextTaskClear();
+    }
   }
 
   String _buildFullPrompt(String currentPrompt) {
@@ -117,7 +130,9 @@ class ChatService {
     return fullPromptBuffer.toString();
   }
 
+  @override
   void dispose() {
     _messagesStreamController.close();
+    super.dispose();
   }
 }

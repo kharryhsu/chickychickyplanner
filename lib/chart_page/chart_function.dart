@@ -28,10 +28,8 @@ class _ChartFunctionState extends State<ChartFunction> {
 
   final Map<String, TextStyle> rarityTextStyles = {
     'Common': const TextStyle(color: Colors.grey),
-    'Uncommon': const TextStyle(color: Colors.green),
     'Rare': const TextStyle(color: Colors.blue),
     'Epic': const TextStyle(color: Colors.purple),
-    'Masterwork': const TextStyle(color: Colors.orange),
     'Legendary': const TextStyle(color: Colors.red),
   };
 

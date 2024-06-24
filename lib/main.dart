@@ -1,3 +1,4 @@
+import 'package:chickychickyplanner/Provider/chat_provider.dart';
 import 'package:chickychickyplanner/Provider/collections_provider.dart';
 import 'package:chickychickyplanner/Provider/task_provider.dart';
 import 'package:chickychickyplanner/Provider/overview_provider.dart';
@@ -9,13 +10,15 @@ import 'package:chickychickyplanner/start_page/options.dart';
 import 'package:chickychickyplanner/start_page/start_page.dart';
 import 'package:chickychickyplanner/start_page/tutorial_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:chickychickyplanner/service/navigation.dart';
 import 'Provider/course_provider.dart';
 import 'Theme/theme.dart';
 import 'Theme/util.dart';
 
-void main() {
+Future main() async {
+  await dotenv.load(fileName: "lib/env/.env");
   runApp(
     MultiProvider(
       providers: [
@@ -26,6 +29,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => ItemCollectionProvider()),
         ChangeNotifierProvider(create: (_) => TaskProvider()),
         ChangeNotifierProvider(create: (_) => PromptTextProvider()),
+        ChangeNotifierProvider(create: (_) => ChatService()),
       ],
       child: const MyApp(),
     ),

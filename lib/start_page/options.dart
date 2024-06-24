@@ -10,10 +10,9 @@ class OptionsPage extends StatelessWidget {
     return Scaffold(
       body: Container(
         width: 700,
-         decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("lib/images/3.jpg"),
-                        fit: BoxFit.fill)),
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("lib/images/3.jpg"), fit: BoxFit.fill)),
         child: Padding(
           padding: const EdgeInsets.only(top: 100, left: 20, right: 20),
           child: Column(
@@ -31,10 +30,10 @@ class OptionsPage extends StatelessWidget {
                           fontSize: 46,
                           fontWeight: FontWeight.bold,
                           height: -0.1,
-                          color: Color(0xffC88421),
+                          color: const Color(0xffC88421),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 45,
                       ),
                       Text(
@@ -43,10 +42,10 @@ class OptionsPage extends StatelessWidget {
                           fontSize: 46,
                           fontWeight: FontWeight.bold,
                           height: -0.1,
-                          color: Color(0xffC88421),
+                          color: const Color(0xffC88421),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 50,
                       ),
                       Text(
@@ -55,45 +54,58 @@ class OptionsPage extends StatelessWidget {
                           fontSize: 46,
                           fontWeight: FontWeight.bold,
                           height: -0.1,
-                          color: Color(0xffC88421),
+                          color: const Color(0xffC88421),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 50,
                       ),
-        
-                      OutlinedButton(onPressed: (){MyApp.navigatorKey.currentState!.pushNamed('/tutorial');}, 
-                        child: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Text("Started Tutorial"),
-                        ),
-                        style: OutlinedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 250, 243, 243),
-                          textStyle: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
+                      OutlinedButton(
+                          onPressed: () {
+                            MyApp.navigatorKey.currentState!
+                                .pushNamed('/tutorial');
+                          },
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromARGB(255, 250, 243, 243),
+                            textStyle: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            side: const BorderSide(
+                                color: Color.fromARGB(255, 250, 243, 243),
+                                width: 2),
                           ),
-                          side: BorderSide(color : Color.fromARGB(255, 250, 243, 243), width: 2),
-                          )
-                      ),
-                      SizedBox(
+                          child: const Padding(
+                            padding: EdgeInsets.all(15.0),
+                            child: Text("Started Tutorial"),
+                          )),
+                      const SizedBox(
                         height: 5,
                       ),
-                      
                       Padding(
-                        padding: const EdgeInsets.only(left : 30),
-                        child: TextButton(onPressed: (){MyApp.navigatorKey.currentState!.pushNamed('/table');}, child: Text("Skip Tutorial",style: TextStyle(
-                          fontSize: 14,
-                          color: Color(0xffC88421),
-                        ),),),
+                        padding: const EdgeInsets.only(left: 30),
+                        child: TextButton(
+                          onPressed: () {
+                            MyApp.navigatorKey.currentState!
+                                .pushNamed('/table');
+                          },
+                          child: const Text(
+                            "Skip Tutorial",
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Color(0xffC88421),
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   )),
               Container(
                 height: 350,
                 width: 400,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage("lib/images/IMG_2695.png"),
                         fit: BoxFit.fill)),

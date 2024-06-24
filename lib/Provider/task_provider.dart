@@ -30,23 +30,15 @@ class TaskProvider with ChangeNotifier {
   }
 
   List<Task> getTaskItemsForCourse(String id) {
-    List<Task> itemsForCourse = [];
-    for (var item in _tasks) {
-      if (item.courseId == id) {
-        itemsForCourse.add(item);
-      }
-    }
-    return itemsForCourse;
+    return _tasks.where((item) => item.courseId == id).toList();
   }
 
   List<String> taskList = [];
 
   String promptTextTask() {
-    int len = _tasks.length;
-    for (int i = 0; i < len; i++) {
-      taskList.add(
-          'Course: ${_tasks[i].courseName}, Task name: ${_tasks[i].title}, Complete: ${_tasks[i].isDone.toString()}, Deadline: ${_tasks[i].dueDate == null ? 'No due date chosen' : _tasks[i].dueDate!.toLocal().toString().split(' ')[0]}');
-    }
+    taskList = _tasks.map((task) {
+      return 'Course: ${task.courseName}, Task name: ${task.title}, Complete: ${task.isDone.toString()}, Deadline: ${task.dueDate == null ? 'No due date chosen' : task.dueDate!.toLocal().toString().split(' ')[0]}';
+    }).toList();
     return taskList.join('\n');
   }
 

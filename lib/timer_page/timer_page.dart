@@ -341,8 +341,8 @@ class TimerPageState extends State<TimerPage> {
             Image.asset(
               images[timerProvider.currentImageLevel]
                   [timerProvider.currentImageIndex],
-              width: 150,
-              height: 150,
+              width: 200,
+              height: 350,
             ),
             Visibility(
               visible: !timerProvider.hasStarted,
