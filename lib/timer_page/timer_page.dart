@@ -117,7 +117,7 @@ class TimerPageState extends State<TimerPage> {
                             Padding(
                               padding: const EdgeInsets.only(top: 30.0),
                               child: Text(
-                                'You got a/an ${name[timerProvider.currentImageIndex]}',
+                                timerProvider.currentImageIndex != 3 ? 'You got a ${name[timerProvider.currentImageIndex]}' : 'You got an ${name[timerProvider.currentImageIndex]}',
                                 style: const TextStyle(fontSize: 18),
                               ),
                             )
@@ -353,7 +353,7 @@ class TimerPageState extends State<TimerPage> {
   Widget buildCharacter(TimerProvider timerProvider) {
     int timeIndicator = timerProvider.maxSeconds - timerProvider.seconds;
 
-    if (timeIndicator > 0 && timeIndicator < 3599) {
+    if (timeIndicator >= 0 && timeIndicator < 3599) {
       timerProvider.currentImageLevel = 0;
     } else if (timeIndicator >= 3599 && timeIndicator < 7199) {
       timerProvider.currentImageLevel = 1;
