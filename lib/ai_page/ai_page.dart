@@ -2,7 +2,7 @@ import 'package:chickychickyplanner/ai_page/chat_screen.dart';
 import 'package:flutter/material.dart';
 
 class AiPage extends StatefulWidget {
-  const AiPage({Key? key});
+  const AiPage({super.key});
 
   @override
   State<AiPage> createState() => _AiPageState();
@@ -15,8 +15,8 @@ class _AiPageState extends State<AiPage> {
       children: [
         Positioned.fill(
           child: Image.asset(
-            'lib/images/AI.png', // Replace with your image path
-            fit: BoxFit.fill, // Adjust the fit as needed
+            'lib/images/AI.png',
+            fit: BoxFit.fill,
           ),
         ),
         Column(
@@ -26,7 +26,7 @@ class _AiPageState extends State<AiPage> {
               child: IndexedStack(
                 children: [
                   Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color.fromARGB(255, 255, 252, 247),
                       border: Border(
                         top: BorderSide(
@@ -39,11 +39,11 @@ class _AiPageState extends State<AiPage> {
                         topLeft: Radius.circular(20),
                       ),
                     ),
-                    child: Column(
+                    child: const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(24, 13, 0, 0),
+                          padding: EdgeInsets.fromLTRB(24, 13, 0, 0),
                           child: Text(
                             'AI Assistance',
                             style: TextStyle(
@@ -53,7 +53,7 @@ class _AiPageState extends State<AiPage> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          padding: EdgeInsets.symmetric(horizontal: 24),
                           child: Divider(
                             thickness: 2,
                             color: Color.fromARGB(255, 76, 46, 2),

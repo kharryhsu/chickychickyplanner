@@ -1,9 +1,7 @@
 import 'package:chickychickyplanner/Model/character_information.dart';
 import 'package:chickychickyplanner/Model/collections.dart';
 import 'package:chickychickyplanner/Provider/collections_provider.dart';
-
 import 'package:flutter/material.dart';
-
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:chickychickyplanner/Provider/course_provider.dart';
@@ -22,13 +20,45 @@ class TimerPage extends StatefulWidget {
 class TimerPageState extends State<TimerPage> {
   TextEditingController hoursController = TextEditingController();
   TextEditingController minutesController = TextEditingController();
+  FocusNode hoursFocusNode = FocusNode();
+  FocusNode minutesFocusNode = FocusNode();
+  ValueNotifier<bool> dropdownVisible = ValueNotifier<bool>(true);
   bool valid = false;
+  bool isKeyboardOpen = false;
+
+  @override
+  void initState() {
+    super.initState();
+    hoursFocusNode.addListener(onFocusChange);
+    minutesFocusNode.addListener(onFocusChange);
+  }
 
   @override
   void dispose() {
     hoursController.dispose();
     minutesController.dispose();
+    hoursFocusNode.dispose();
+    minutesFocusNode.dispose();
+    dropdownVisible.dispose();
     super.dispose();
+  }
+
+  void onFocusChange() {
+    if (!hoursFocusNode.hasFocus &&
+        !minutesFocusNode.hasFocus &&
+        !isKeyboardOpen) {
+      _delayedVisibility(true);
+    } else {
+      _delayedVisibility(false);
+    }
+  }
+
+  void _delayedVisibility(bool visible) {
+    Future.delayed(const Duration(milliseconds: 300), () {
+      setState(() {
+        dropdownVisible.value = visible;
+      });
+    });
   }
 
   void previousImage(TimerProvider timerProvider) {
@@ -92,9 +122,8 @@ class TimerPageState extends State<TimerPage> {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(bottom: 30.0, top: 20),
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 30.0, top: 20),
                               child: Text('Congratulations!',
                                   style: TextStyle(
                                       fontSize: 30,
@@ -117,7 +146,9 @@ class TimerPageState extends State<TimerPage> {
                             Padding(
                               padding: const EdgeInsets.only(top: 30.0),
                               child: Text(
-                                timerProvider.currentImageIndex != 3 ? 'You got a ${name[timerProvider.currentImageIndex]}' : 'You got an ${name[timerProvider.currentImageIndex]}',
+                                timerProvider.currentImageIndex != 3
+                                    ? 'You got a ${name[timerProvider.currentImageIndex]}'
+                                    : 'You got an ${name[timerProvider.currentImageIndex]}',
                                 style: const TextStyle(fontSize: 18),
                               ),
                             )
@@ -142,46 +173,43 @@ class TimerPageState extends State<TimerPage> {
                               timerProvider.updateCurrentImageLevel(0);
                               Navigator.of(context).pop();
                             },
-                            child: Text('OK'),
+                            child: const Text('OK'),
                           ),
                         ],
                       );
                     },
                   );
                 };
-                return Center(
-                  child: Stack(
-                    children: [
-                      Container(
-                        height: 900,
-                        width: 450,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('lib/images/Timer.png'),
-                            fit: BoxFit.fill,
+                return Scaffold(
+                  resizeToAvoidBottomInset: false,
+                  body: Center(
+                    child: Stack(
+                      children: [
+                        Container(
+                          height: 900,
+                          width: 450,
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage('lib/images/Timer.png'),
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         ),
-                      ),
-                      Listener(
-                        onPointerMove: (moveEvent) {
-                          double sensitivity = 18;
-                          if (moveEvent.delta.dx > sensitivity) {
-                            previousImage(timerProvider);
-                          } else if (moveEvent.delta.dx < -sensitivity) {
-                            nextImage(timerProvider);
-                          }
-                        },
-                        child: Padding(
+                        Padding(
                           padding: const EdgeInsets.only(top: 200),
                           child: Column(
                             children: [
                               buildCharacter(timerProvider),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              buildCourseDropdownMenu(timerProvider, courses),
-                              const SizedBox(
-                                height: 15,
+                              buildFadeInWidget(
+                                isVisible: dropdownVisible.value,
+                                child: Column(
+                                  children: [
+                                    const SizedBox(height: 20),
+                                    buildCourseDropdownMenu(
+                                        timerProvider, courses),
+                                    const SizedBox(height: 15),
+                                  ],
+                                ),
                               ),
                               Stack(
                                 alignment: Alignment.center,
@@ -194,18 +222,22 @@ class TimerPageState extends State<TimerPage> {
                                       child: buildTime(timerProvider)),
                                 ],
                               ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              buildButton(timerProvider, coursesAvailable),
-                              const SizedBox(
-                                height: 10,
-                              ),
+                              buildFadeInWidget(
+                                isVisible: dropdownVisible.value,
+                                child: Column(
+                                  children: [
+                                    const SizedBox(height: 10),
+                                    buildButton(
+                                        timerProvider, coursesAvailable),
+                                    const SizedBox(height: 10),
+                                  ],
+                                ),
+                              )
                             ],
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               },
@@ -319,6 +351,7 @@ class TimerPageState extends State<TimerPage> {
           width: 100,
           child: TextField(
             controller: hoursController,
+            focusNode: hoursFocusNode,
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(
               labelText: 'Hours',
@@ -335,6 +368,7 @@ class TimerPageState extends State<TimerPage> {
           width: 100,
           child: TextField(
             controller: minutesController,
+            focusNode: minutesFocusNode,
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(
               labelText: 'Minutes',
@@ -351,17 +385,6 @@ class TimerPageState extends State<TimerPage> {
   }
 
   Widget buildCharacter(TimerProvider timerProvider) {
-    int timeIndicator = timerProvider.maxSeconds - timerProvider.seconds;
-
-    if (timeIndicator >= 0 && timeIndicator < 3599) {
-      timerProvider.currentImageLevel = 0;
-    } else if (timeIndicator >= 3599 && timeIndicator < 7199) {
-      timerProvider.currentImageLevel = 1;
-    } else if (timeIndicator >= 7199 && timeIndicator < 10799) {
-      timerProvider.currentImageLevel = 2;
-    } else if (timeIndicator >= 10799) {
-      timerProvider.currentImageLevel = 3;
-    }
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -425,6 +448,20 @@ class TimerPageState extends State<TimerPage> {
         fontWeight: FontWeight.bold,
         color: Color(0xff12651b),
         fontSize: 45,
+      ),
+    );
+  }
+
+  Widget buildFadeInWidget({required bool isVisible, required Widget child}) {
+    return AnimatedOpacity(
+      opacity: isVisible ? 1.0 : 0.0,
+      duration: isVisible == true
+          ? const Duration(milliseconds: 1000)
+          : const Duration(milliseconds: 0),
+      curve: Curves.easeIn,
+      child: Visibility(
+        visible: isVisible,
+        child: child,
       ),
     );
   }

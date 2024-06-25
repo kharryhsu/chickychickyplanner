@@ -1,4 +1,5 @@
 import 'package:chickychickyplanner/Provider/chat_provider.dart';
+import 'package:chickychickyplanner/Provider/task_listener_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:chickychickyplanner/Model/chat_message.dart';
@@ -31,11 +32,14 @@ class _ChatScreenState extends State<ChatScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Delete Chat History?',style: TextStyle(
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
-            color: Color(0xff2596be),
-          ),),
+          title: const Text(
+            'Delete Chat History?',
+            style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+              color: Color(0xff2596be),
+            ),
+          ),
           content:
               const Text('Are you sure you want to delete the chat history?'),
           actions: <Widget>[
@@ -61,17 +65,17 @@ class _ChatScreenState extends State<ChatScreen> {
   void _sendMessage() {
     if (_textController.text.isNotEmpty) {
       _chatService.fetchPromptResponse(
-        _textController.text.trim(),
-        context.read<PromptTextProvider>(),
-      );
+          _textController.text.trim(),
+          context.read<PromptTextProvider>(),
+          context.read<TaskListenerProvider>());
       _textController.clear();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<PromptTextProvider>(
-      builder: (context, promptTextProvider, _) {
+    return Consumer2<PromptTextProvider, TaskListenerProvider>(
+      builder: (context, promptTextProvider, taskListenerProvider, _) {
         return Column(
           children: [
             Row(
@@ -128,7 +132,7 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
             Container(
               padding: const EdgeInsets.all(16),
-              color: Color(0xffb2cbde),
+              color: const Color(0xffb2cbde),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [

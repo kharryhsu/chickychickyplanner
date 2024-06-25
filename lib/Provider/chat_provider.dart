@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:chickychickyplanner/Model/chat_message.dart';
+import 'package:chickychickyplanner/Provider/task_listener_provider.dart';
 import 'package:chickychickyplanner/provider/prompt_text_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -66,10 +67,10 @@ class ChatService with ChangeNotifier {
 
   Future<void> fetchPromptResponse(
       String prompt,
-      PromptTextProvider
-          promptTextProvider /*, TaskProvider taskProvider*/) async {
+      PromptTextProvider promptTextProvider,
+      TaskListenerProvider taskListenerProvider) async {
     String fullPrompt = _buildFullPrompt(
-        /*taskProvider.promptTextTask() +*/ '${promptTextProvider.text} $prompt.');
+        '${taskListenerProvider.promptTextTask()} ${promptTextProvider.text} $prompt.');
 
     _messages.insert(0, ChatMessage(role: 'User Chicky Chicky', text: prompt));
     _messages.insert(
@@ -116,7 +117,7 @@ class ChatService with ChangeNotifier {
     } finally {
       _messagesStreamController.add(List.from(_messages));
       saveChatHistory();
-      //taskProvider.promptTextTaskClear();
+      taskListenerProvider.promptTextTaskClear();
     }
   }
 

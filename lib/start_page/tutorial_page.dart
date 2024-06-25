@@ -30,13 +30,12 @@ class TutorialPageState extends State<TutorialPage> {
   }
 
   void _goToNextPage() {
-    if (_currentPage < 3) {
+    if (_currentPage < 6) {
       _pageController.nextPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.ease,
       );
     } else {
-      // Navigate to '/table' when on the last page
       MyApp.navigatorKey.currentState!.pushNamed('/table');
     }
   }
@@ -54,36 +53,39 @@ class TutorialPageState extends State<TutorialPage> {
               });
             },
             children: [
-              _buildTutorialPage('Page 1', Colors.blue),
-              _buildTutorialPage('Page 2', Colors.green),
-              _buildTutorialPage('Page 3', Colors.orange),
-              _buildLastTutorialPage('Page 4', Colors.purple),
+              for (int i = 0; i < 6; i++)
+                _buildTutorialPage(
+                    'lib/images/Tutorial_page/Tutorial_page_0$i.png'),
+              _buildLastTutorialPage('lib/images/Decorations/ChickyChicky.png'),
             ],
           ),
           Positioned(
-            bottom: 20,
-            left: 0,
+            bottom: 0,
             right: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.arrow_back_ios),
-                  onPressed: _goToPreviousPage,
-                  color: Colors.black,
-                ),
-                const SizedBox(width: 20),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: _buildIndicatorDots(),
-                ),
-                const SizedBox(width: 20),
-                IconButton(
-                  icon: const Icon(Icons.arrow_forward_ios),
-                  onPressed: _goToNextPage,
-                  color: Colors.black,
-                ),
-              ],
+            left: 0,
+            child: Container(
+              height: 80,
+              color: Colors.white.withOpacity(0.9),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back_ios),
+                    onPressed: _goToPreviousPage,
+                    color: const Color.fromARGB(255, 76, 46, 2),
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: _buildIndicatorDots(),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.arrow_forward_ios),
+                    onPressed: _goToNextPage,
+                    color: const Color.fromARGB(255, 76, 46, 2),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -93,7 +95,7 @@ class TutorialPageState extends State<TutorialPage> {
 
   List<Widget> _buildIndicatorDots() {
     List<Widget> dots = [];
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 7; i++) {
       dots.add(
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 4),
@@ -102,8 +104,8 @@ class TutorialPageState extends State<TutorialPage> {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: _currentPage == i
-                ? const Color.fromARGB(255, 76, 46, 2)
-                : Colors.grey,
+                ? const Color.fromARGB(255, 241, 192, 31)
+                : const Color.fromARGB(255, 167, 167, 167),
           ),
         ),
       );
@@ -111,7 +113,7 @@ class TutorialPageState extends State<TutorialPage> {
     return dots;
   }
 
-  Widget _buildTutorialPage(String text, Color color) {
+  Widget _buildTutorialPage(String imageName) {
     return GestureDetector(
       onHorizontalDragUpdate: (details) {
         int sensitivity = 20;
@@ -122,18 +124,17 @@ class TutorialPageState extends State<TutorialPage> {
         }
       },
       child: Container(
-        color: color,
-        child: Center(
-          child: Text(
-            text,
-            style: const TextStyle(fontSize: 24, color: Colors.white),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(imageName),
+            fit: BoxFit.cover,
           ),
         ),
       ),
     );
   }
 
-  Widget _buildLastTutorialPage(String text, Color color) {
+  Widget _buildLastTutorialPage(String imageName) {
     return GestureDetector(
       onHorizontalDragUpdate: (details) {
         int sensitivity = 20;
@@ -144,14 +145,15 @@ class TutorialPageState extends State<TutorialPage> {
         }
       },
       child: Container(
-        color: color,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(imageName),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              text,
-              style: const TextStyle(fontSize: 24, color: Colors.white),
-            ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _goToNextPage,

@@ -1,5 +1,6 @@
 import 'package:chickychickyplanner/Provider/chat_provider.dart';
 import 'package:chickychickyplanner/Provider/collections_provider.dart';
+import 'package:chickychickyplanner/Provider/task_listener_provider.dart';
 import 'package:chickychickyplanner/Provider/task_provider.dart';
 import 'package:chickychickyplanner/Provider/overview_provider.dart';
 import 'package:chickychickyplanner/Provider/timer_provider.dart';
@@ -30,6 +31,13 @@ Future main() async {
         ChangeNotifierProvider(create: (_) => TaskProvider()),
         ChangeNotifierProvider(create: (_) => PromptTextProvider()),
         ChangeNotifierProvider(create: (_) => ChatService()),
+        ChangeNotifierProxyProvider<TaskProvider, TaskListenerProvider>(
+          create: (context) =>
+              TaskListenerProvider(context.read<TaskProvider>()),
+          update: (context, taskProvider, taskListenerProvider) {
+            return taskListenerProvider!..taskProvider = taskProvider;
+          },
+        ),
       ],
       child: const MyApp(),
     ),

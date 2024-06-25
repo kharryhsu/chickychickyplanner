@@ -63,97 +63,96 @@ class _ChecklistFunctionState extends State<ChecklistFunction> {
     }
   }
 
-void addTaskDialog(String courseId, String courseName, [Task? taskToEdit]) {
-  if (taskToEdit != null) {
-    _taskController.text = taskToEdit.title;
-    _selectedDate = taskToEdit.dueDate;
-    _editedTask = taskToEdit;
-  }
+  void addTaskDialog(String courseId, String courseName, [Task? taskToEdit]) {
+    if (taskToEdit != null) {
+      _taskController.text = taskToEdit.title;
+      _selectedDate = taskToEdit.dueDate;
+      _editedTask = taskToEdit;
+    }
 
-  showDialog(
-    context: context,
-    builder: (context) {
-      return StatefulBuilder(
-        builder: (context, setState) {
-          return AlertDialog(
-            title: Text(
-              _editedTask == null ? 'New Task' : 'Edit Task',
-              style: TextStyle(
-                color: Color(0xffcc29aa),
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(
-                  controller: _taskController,
-                  decoration: const InputDecoration(labelText: 'Task'),
-                  onChanged: (value) {
-                    setState(() {});
-                  },
+    showDialog(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: Text(
+                _editedTask == null ? 'New Task' : 'Edit Task',
+                style: const TextStyle(
+                  color: Color(0xffcc29aa),
+                  fontWeight: FontWeight.bold,
                 ),
-                const SizedBox(height: 20),
-                ListTile(
-                  title: Text(
-                    _selectedDate == null
-                        ? 'No due date chosen'
-                        : 'Due Date: ${_selectedDate!.toLocal().toString().split(' ')[0]}',
-                    style: TextStyle(fontSize: 12),
-                  ),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.calendar_today),
-                    onPressed: () async {
-                      DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(2020),
-                        lastDate: DateTime(2030),
-                      );
-                      if (pickedDate != null) {
-                        setState(() {
-                          _selectedDate = pickedDate;
-                        });
-                      }
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    controller: _taskController,
+                    decoration: const InputDecoration(labelText: 'Task'),
+                    onChanged: (value) {
+                      setState(() {});
                     },
+                  ),
+                  const SizedBox(height: 20),
+                  ListTile(
+                    title: Text(
+                      _selectedDate == null
+                          ? 'No due date chosen'
+                          : 'Due Date: ${_selectedDate!.toLocal().toString().split(' ')[0]}',
+                      style: const TextStyle(fontSize: 12),
+                    ),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.calendar_today),
+                      onPressed: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(2020),
+                          lastDate: DateTime(2030),
+                        );
+                        if (pickedDate != null) {
+                          setState(() {
+                            _selectedDate = pickedDate;
+                          });
+                        }
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    _taskController.clear();
+                    _selectedDate = null;
+                    _editedTask = null;
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    addTaskInfo(
+                      context,
+                      courseId,
+                      courseName,
+                    );
+                  },
+                  style: TextButton.styleFrom(
+                    backgroundColor: const Color(0xffcc29aa),
+                  ),
+                  child: const Text(
+                    'Save',
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ],
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  _taskController.clear();
-                  _selectedDate = null;
-                  _editedTask = null;
-                  Navigator.pop(context);
-                },
-                child: const Text('Cancel'),
-              ),
-              TextButton(
-                onPressed: () {
-                  addTaskInfo(
-                    context,
-                    courseId,
-                    courseName,
-                  );
-                },
-                style: TextButton.styleFrom(
-                  backgroundColor: Color(0xffcc29aa),
-                ),
-                child: const Text(
-                  'Save',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ],
-          );
-        },
-      );
-    },
-  );
-}
-
+            );
+          },
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
