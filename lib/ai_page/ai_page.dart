@@ -15,8 +15,8 @@ class _AiPageState extends State<AiPage> {
       children: [
         Positioned.fill(
           child: Image.asset(
-            'lib/images/AI.png', // Replace with your image path
-            fit: BoxFit.fill, // Adjust the fit as needed
+            'lib/images/AI.png',
+            fit: BoxFit.fill,
           ),
         ),
         Column(

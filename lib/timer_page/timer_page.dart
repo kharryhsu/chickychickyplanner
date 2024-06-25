@@ -200,31 +200,16 @@ class TimerPageState extends State<TimerPage> {
                           child: Column(
                             children: [
                               buildCharacter(timerProvider),
-                              ValueListenableBuilder<bool>(
-                                valueListenable: dropdownVisible,
-                                builder: (context, value, child) {
-                                  return Column(
-                                    children: [
-                                      Visibility(
-                                        visible: value,
-                                        child: const SizedBox(
-                                          height: 20,
-                                        ),
-                                      ),
-                                      Visibility(
-                                        visible: value,
-                                        child: buildCourseDropdownMenu(
-                                            timerProvider, courses),
-                                      ),
-                                      Visibility(
-                                        visible: value,
-                                        child: const SizedBox(
-                                          height: 15,
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                },
+                              buildFadeInWidget(
+                                isVisible: dropdownVisible.value,
+                                child: Column(
+                                  children: [
+                                    const SizedBox(height: 20),
+                                    buildCourseDropdownMenu(
+                                        timerProvider, courses),
+                                    const SizedBox(height: 15),
+                                  ],
+                                ),
                               ),
                               Stack(
                                 alignment: Alignment.center,
@@ -237,32 +222,17 @@ class TimerPageState extends State<TimerPage> {
                                       child: buildTime(timerProvider)),
                                 ],
                               ),
-                              ValueListenableBuilder<bool>(
-                                valueListenable: dropdownVisible,
-                                builder: (context, value, child) {
-                                  return Column(
-                                    children: [
-                                      Visibility(
-                                        visible: value,
-                                        child: const SizedBox(
-                                          height: 10,
-                                        ),
-                                      ),
-                                      Visibility(
-                                        visible: value,
-                                        child: buildButton(
-                                            timerProvider, coursesAvailable),
-                                      ),
-                                      Visibility(
-                                        visible: value,
-                                        child: const SizedBox(
-                                          height: 10,
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              ),
+                              buildFadeInWidget(
+                                isVisible: dropdownVisible.value,
+                                child: Column(
+                                  children: [
+                                    const SizedBox(height: 10),
+                                    buildButton(
+                                        timerProvider, coursesAvailable),
+                                    const SizedBox(height: 10),
+                                  ],
+                                ),
+                              )
                             ],
                           ),
                         ),
@@ -415,17 +385,6 @@ class TimerPageState extends State<TimerPage> {
   }
 
   Widget buildCharacter(TimerProvider timerProvider) {
-    int timeIndicator = timerProvider.maxSeconds - timerProvider.seconds;
-
-    if (timeIndicator > 0 && timeIndicator <= 3599) {
-      timerProvider.currentImageLevel = 0;
-    } else if (timeIndicator > 3599 && timeIndicator <= 7199) {
-      timerProvider.currentImageLevel = 1;
-    } else if (timeIndicator > 7199 && timeIndicator <= 10799) {
-      timerProvider.currentImageLevel = 2;
-    } else if (timeIndicator > 10799) {
-      timerProvider.currentImageLevel = 3;
-    }
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -489,6 +448,20 @@ class TimerPageState extends State<TimerPage> {
         fontWeight: FontWeight.bold,
         color: Color(0xff12651b),
         fontSize: 45,
+      ),
+    );
+  }
+
+  Widget buildFadeInWidget({required bool isVisible, required Widget child}) {
+    return AnimatedOpacity(
+      opacity: isVisible ? 1.0 : 0.0,
+      duration: isVisible == true
+          ? const Duration(milliseconds: 1000)
+          : const Duration(milliseconds: 0),
+      curve: Curves.easeIn,
+      child: Visibility(
+        visible: isVisible,
+        child: child,
       ),
     );
   }

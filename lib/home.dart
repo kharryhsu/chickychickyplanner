@@ -1,4 +1,5 @@
 import 'package:chickychickyplanner/checks_list_page/checklist_page.dart';
+import 'package:chickychickyplanner/start_page/tutorial_page_specific.dart';
 import 'package:chickychickyplanner/table_page/table_page.dart';
 import 'package:flutter/material.dart';
 
@@ -59,6 +60,12 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void _showTutorialPage(int currentPage) {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => TutorialPageSpecific(currentPage: currentPage),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<Widget> tabs = [
@@ -70,14 +77,27 @@ class _HomePageState extends State<HomePage> {
     ];
 
     return Scaffold(
-      body: PageView(
-        controller: _pageController,
-        onPageChanged: (int index) {
-          setState(() {
-            _currentPage = index;
-          });
-        },
-        children: tabs,
+      body: Stack(
+        children: [
+          PageView(
+            controller: _pageController,
+            onPageChanged: (int index) {
+              setState(() {
+                _currentPage = index;
+              });
+            },
+            children: tabs,
+          ),
+          Positioned(
+            top: 20,
+            right: 0,
+            child: IconButton(
+              icon: const Icon(Icons.info_outline),
+              iconSize: 40,
+              onPressed: () => _showTutorialPage(_currentPage),
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) => _tapBottomNavigationBarItem(context, index),

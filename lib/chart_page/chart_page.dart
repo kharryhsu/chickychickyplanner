@@ -15,8 +15,8 @@ class _ChartPageState extends State<ChartPage> {
       children: [
         Positioned.fill(
           child: Image.asset(
-            'lib/images/Trophy.png', // Replace with your image path
-            fit: BoxFit.fill, // Adjust the fit as needed
+            'lib/images/Trophy.png',
+            fit: BoxFit.fill,
           ),
         ),
         Column(
@@ -27,8 +27,7 @@ class _ChartPageState extends State<ChartPage> {
                 children: [
                   Container(
                     decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 255, 252,
-                          247), // Adjust background color opacity
+                      color: Color.fromARGB(255, 255, 252, 247),
                       border: Border(
                         top: BorderSide(
                           color: Color.fromARGB(255, 76, 46, 2),

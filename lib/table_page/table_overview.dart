@@ -31,9 +31,9 @@ class _OverviewTabState extends State<OverviewTab> {
           Container(
             width: 50,
             height: 50,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.grey[200],
+              color: Color.fromARGB(255, 253, 202, 125),
             ),
             child: IconButton(
               onPressed: () => _navigateToFullScreen(context),
@@ -51,6 +51,10 @@ class _OverviewTabState extends State<OverviewTab> {
   Widget buildTable(BuildContext context, List<List<String>> dataTable) {
     return Container(
       alignment: Alignment.center,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -63,7 +67,7 @@ class _OverviewTabState extends State<OverviewTab> {
                   Container(
                     width: 100,
                     height: 50,
-                    color: Colors.grey[200],
+                    color: const Color.fromARGB(255, 253, 202, 125),
                     child: Center(child: Text(day)),
                   ),
               ],
@@ -74,7 +78,7 @@ class _OverviewTabState extends State<OverviewTab> {
                   Container(
                     width: 100,
                     height: 50,
-                    color: Colors.grey[200],
+                    color: const Color.fromARGB(255, 253, 202, 125),
                     child: Center(
                         child: Text(
                       i > 9
@@ -149,6 +153,10 @@ class FullScreenOverview extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: Container(
             alignment: Alignment.center,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(),
+            ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -161,7 +169,7 @@ class FullScreenOverview extends StatelessWidget {
                         Container(
                           width: 100,
                           height: 50,
-                          color: Colors.grey[200],
+                          color: const Color.fromARGB(255, 253, 202, 125),
                           child: Center(child: Text(day)),
                         ),
                     ],
@@ -172,7 +180,7 @@ class FullScreenOverview extends StatelessWidget {
                         Container(
                           width: 100,
                           height: 50,
-                          color: Colors.grey[200],
+                          color: const Color.fromARGB(255, 253, 202, 125),
                           child: Center(
                               child: Text(
                             i > 9

@@ -29,11 +29,14 @@ class TimerProvider with ChangeNotifier {
         if (seconds > 0) {
           seconds--;
           hasStarted = true;
+          calculateCurrentImageLevel();
         } else {
           stopTimer(reset: true);
-          if (onTimerFinish != null) {
-            onTimerFinish!();
-          }
+          Future.delayed(const Duration(seconds: 1), () {
+            if (onTimerFinish != null && seconds == maxSeconds) {
+              onTimerFinish!();
+            }
+          });
         }
         notifyListeners();
       }
@@ -54,5 +57,18 @@ class TimerProvider with ChangeNotifier {
     isPaused = false;
     hasStarted = false;
     notifyListeners();
+  }
+
+  void calculateCurrentImageLevel() {
+    int timeIndicator = maxSeconds - seconds;
+    if (timeIndicator > 0 && timeIndicator <= 3599) {
+      currentImageLevel = 0;
+    } else if (timeIndicator > 3599 && timeIndicator <= 7199) {
+      currentImageLevel = 1;
+    } else if (timeIndicator > 7199 && timeIndicator <= 10799) {
+      currentImageLevel = 2;
+    } else if (timeIndicator > 10799) {
+      currentImageLevel = 3;
+    }
   }
 }
